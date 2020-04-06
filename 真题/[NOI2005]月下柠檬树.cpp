@@ -31,7 +31,6 @@ double calc(double L, double R, double ans) {
 		return calc(L, mid, lR) + calc(mid, R, rR);
 }
 int main() {
-	freopen("test.in", "r", stdin);
 	scanf("%d %lf", &n, &alpha);
 	cota = 1 / tan(alpha);
 	for (int i = 1; i <= n + 1; ++i) {
