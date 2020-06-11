@@ -14,19 +14,19 @@ int main() {
 		scanf("%d%d%d", &a, &b, &c);
 		for (int x = 1; x <= m; ++x) {
 			int v = fun(x);
-			if(p.size()<m||v<p.top()) {
+			if (p.size() < m || v < p.top()) {
 				p.push(v);
-				if(p.size()>m)
+				if (p.size() > m)
 					p.pop();
-			}
-			else break;
+			} else
+				break;
 		}
 	}
-	while(!p.empty()) {
+	while (!p.empty()) {
 		val[++pos] = p.top();
 		p.pop();
 	}
-	while(pos) {
+	while (pos) {
 		printf("%d ", val[pos--]);
 	}
 	return 0;

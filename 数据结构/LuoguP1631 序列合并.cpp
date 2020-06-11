@@ -9,17 +9,14 @@ struct Combine {
 	int val() const { return a[i] + b[j]; }
 	int i, j;
 };
-// inline bool operator==(const Combine &lhs, const Combine &rhs) { return lhs.i == rhs.i && lhs.j == rhs.j; }
 inline bool operator<(const Combine &lhs, const Combine &rhs) { return lhs.val() > rhs.val(); }
 priority_queue<Combine> q;
 set<pair<int, int> > s;
 inline void add(int i, int j) {
 	Combine c(i, j);
-//	printf("\ntry %d %d ...  ", i, j);
 	if (s.find(make_pair(i, j)) == s.end()) {
 		s.insert(make_pair(i, j));
 		q.push(c);
-//		printf("add %d + %d = %d\n", i, j, c.val());
 	}
 }
 int main() {
