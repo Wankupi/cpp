@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 using namespace std;
 const int maxn = 1000010;
 int n = 0, m = 122;

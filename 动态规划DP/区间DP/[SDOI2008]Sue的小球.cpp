@@ -10,17 +10,13 @@ void read(int &x) {
 	x *= f;
 }
 int n = 0, x0 = 0;
-struct Data {
-	int x, v;
-};
+struct Data { int x, v; };
 bool operator<(const Data &lhs, const Data &rhs) { return lhs.x < rhs.x; }
 Data da[1005];
 int sumY = 0, sv[1001];
 int f[2][1001][1001];
 inline int min(int a, int b) { return a < b ? a : b; }
 int main() {
-	freopen("testdata.in", "rb", stdin);
-	freopen("testdata.out", "wb", stdout);
 	read(n); read(x0);
 	int y = 0;
 	for (int i = 1; i <= n; ++i)
