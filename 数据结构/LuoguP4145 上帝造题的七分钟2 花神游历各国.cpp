@@ -13,8 +13,6 @@ inline ll query(int p) {
 int fa[100003];
 inline int find(int x) { return fa[x] == x ? x : fa[x] = find(fa[x]); }
 int main() {
-	freopen("P4145_5.in", "r", stdin);
-	freopen("t.out", "w", stdout);
 	scanf("%d", &n);
 	for (int i = 1; i <= n; ++i) {
 		scanf("%lld", a + i);
