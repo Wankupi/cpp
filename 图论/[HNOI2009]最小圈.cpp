@@ -26,7 +26,6 @@ bool check() {
 	return false;
 }
 int main() {
-	freopen("P3199_1.in", "r", stdin);
 	scanf("%d%d", &n, &m);
 	int a = 0, b = 0;
 	double w = 0;
