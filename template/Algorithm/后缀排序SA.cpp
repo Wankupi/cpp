@@ -1,49 +1,37 @@
+#include <algorithm>
 #include <cstdio>
 #include <cstring>
-#include <algorithm>
-using namespace std;
-const int maxn = 1000010;
-int n = 0, m = 122;
+const int maxn = 1000007;
+int n = 0;
 char s[maxn];
 int sa[maxn];
-int X[maxn], Y[maxn], c[maxn];
-void GetSA() {
-	int *x = X, *y = Y;
-	for (int i = 1; i <= n; ++i) ++c[ x[i] = s[i] ];
-	for (int i = 2; i <= m; ++i)
-		c[i] += c[i - 1];
-	for (int i = n; i; --i)
-		sa[c[x[i]]--] = i;
-	for (int k = 1; k <= n; k <<= 1) {
-		int cnt = 0;
-		for (int i = n - k + 1; i <= n; ++i)
-			y[++cnt] = i;
-		for (int i = 1; i <= n; ++i)
-			if (sa[i] > k) y[++cnt] = sa[i] - k;
-
-		for (int i = 1; i <= m; ++i)
-			c[i] = 0;
-		for (int i = 1; i <= n; ++i)
-			++c[x[i]];
-		for (int i = 1; i <= m; ++i)
-			c[i] += c[i - 1];
-		for (int i = n; i; --i)
-			sa[c[x[y[i]]]--] = y[i], y[i] = 0;
-		swap(x, y);
-		x[sa[1]] = 1;
-		cnt = 1;
-		for (int i = 2; i <= n; ++i) {
-			x[sa[i]] = (y[sa[i]] == y[sa[i - 1]] && y[sa[i] + k] == y[sa[i - 1] + k]) ? cnt : ++cnt;
-		}
-		if (cnt == n) break;
-		m = cnt;
+int A[maxn], B[maxn], t[maxn];
+int *rank = A, *tp = B;
+int m = 0;
+inline void Qsort() {
+	for (int i = 0; i <= m; ++i) t[i] = 0;
+	for (int i = 1; i <= n; ++i) ++t[rank[i]];
+	for (int i = 1; i <= m; ++i) t[i] += t[i - 1];
+	for (int i = n; i >= 1; --i) sa[t[rank[tp[i]]]--] = tp[i];
+}
+void SAsort() {
+	m = 256;
+	for (int i = 1; i <= n; ++i) rank[i] = s[i], tp[i] = i;
+	Qsort();
+	for (int len = 1, p = 0; p < n && len < n; m = p, len <<= 1) {
+		p = 0;
+		for (int i = 1; i <= len; ++i) tp[++p] = n - len + i;
+		for (int i = 1; i <= n; ++i) if (sa[i] > len) tp[++p] = sa[i] - len;
+		Qsort();
+		tp[sa[1]] = p = 1;
+		for (int i = 2; i <= n; ++i) tp[sa[i]] = (rank[sa[i - 1]] == rank[sa[i]] && rank[sa[i - 1] + len] == rank[sa[i] + len] ? p : ++p);
+		std::swap(rank, tp);
 	}
 }
 int main() {
 	scanf("%s", s + 1);
 	n = strlen(s + 1);
-	GetSA();
-	for (int i = 1; i <= n; ++i)
-		printf("%d ", sa[i]);
+	SAsort();
+	for (int i = 1; i <= n; ++i) printf("%d ", sa[i]);
 	return 0;
 }
