@@ -32,6 +32,10 @@ void DFT(int(&f)[1 << 21], int op) {
 			}
 		}
 	}
+	if (op == -1) {
+		int inv = pow(limit, mod - 2);
+		for (int i = 0; i < limit; ++i) c[i] = ((long long)c[i] * inv % mod + mod) % mod;
+	}
 }
 
 int main() {
@@ -50,8 +54,6 @@ int main() {
 	DFT(b, 1);
 	for (int i = 0; i < limit; ++i) c[i] = (long long)a[i] * b[i] % mod;
 	DFT(c, -1);
-	int inv = pow(limit, mod - 2);
-	for (int i = 0; i < limit; ++i) c[i] = ((long long)c[i] * inv % mod + mod) % mod;
 
 	int Jin = 0, C = 0;
 	for (int i = 0; i <= A + B; ++i) {

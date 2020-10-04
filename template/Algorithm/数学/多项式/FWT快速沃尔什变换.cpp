@@ -42,7 +42,7 @@ int main() {
 		scanf("%lld", A + i);
 	for (int i = 0; i < N; ++i)
 		scanf("%lld", B + i);
-	// 499122177;
+
 	OR(dA, A, 1);
 	OR(dB, B, 1);
 	for (int i = 0; i < N; ++i)
