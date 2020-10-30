@@ -27,7 +27,6 @@ namespace SegTr {
 }
 
 int main() {
-	freopen("tou.in", "r", stdin);
 	scanf("%d %d %d", &n, &m, &q);
 	memset(w, 0x3f, sizeof w);
 	for (int i = 1; i <= n; ++i) scanf("%d", w + i);
