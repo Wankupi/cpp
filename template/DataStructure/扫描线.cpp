@@ -7,7 +7,7 @@ struct Square {
 	int x1, y1, x2, y2;
 };
 Square sq[100003];
-int xs[200003], cx = 0; // ¼ÇÂ¼ËùÓĞµÄxÖµ£¬ÀëÉ¢»¯
+int xs[200003], cx = 0; // è®°å½•æ‰€æœ‰çš„xå€¼ï¼Œç¦»æ•£åŒ–
 struct Line {
 	int y, l, r, val;
 };
@@ -16,7 +16,7 @@ inline bool operator<(const Line &lhs, const Line &rhs) {
 }
 Line lin[200003];
 const int maxn = 800007;
-int t[maxn], len[maxn]; // Õâ¸ö½Úµã±» ÍêÈ«¸²¸Ç ÁË¶àÉÙ´Î£¬ Ëü±»¸²¸ÇµÄ×Ü³¤¶ÈÊÇ¶àÉÙ¡£
+int t[maxn], len[maxn]; // è¿™ä¸ªèŠ‚ç‚¹è¢« å®Œå…¨è¦†ç›– äº†å¤šå°‘æ¬¡ï¼Œ å®ƒè¢«è¦†ç›–çš„æ€»é•¿åº¦æ˜¯å¤šå°‘ã€‚
 
 inline void pushUp(int p, int L, int R) {
 	if (L == R) len[p] = 0;
@@ -45,7 +45,7 @@ int main() {
 	cx = unique(xs + 1, xs + cx + 1) - xs - 1;
 	for (int i = 1; i <= n; ++i) {
 		int nL = lower_bound(xs + 1, xs + cx + 1, sq[i].x1) - xs,
-			nR = lower_bound(xs + 1, xs + cx + 1, sq[i].x2) - xs - 1; // ±ä¿é important
+			nR = lower_bound(xs + 1, xs + cx + 1, sq[i].x2) - xs - 1; // å˜å— important
 		lin[i * 2 - 1] = Line{ sq[i].y1, nL, nR, 1 };
 		lin[i * 2] = Line{ sq[i].y2, nL, nR, -1 };
 	}
