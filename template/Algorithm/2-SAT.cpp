@@ -38,7 +38,7 @@ int main() {
 	int a = 0, b = 0, x = 0, y = 0;
 	for (int i = 1; i <= m; ++i) {
 		scanf("%d%d%d%d", &x, &a, &y, &b);
-		//不妨定义x为1，x+n为0
+		//不妨定义x为0，x+n为1
 		// ~A -> B	~B -> A
 		insert(x + (a ^ 1) * n, y + b * n);
 		insert(y + (b ^ 1) * n, x + a * n);

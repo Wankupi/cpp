@@ -4,7 +4,7 @@ const ll mod = 998244353;
 int n = 0;
 ll k = 0, x[2001], y[2001];
 ll mutiL[2010], mutiR[2010];
-ll row(ll x, ll a) {
+ll pow(ll x, ll a) {
 	ll ans = 1;
 	while (a) {
 		if (a & 1) ans = (ans * x) % mod;
@@ -29,7 +29,7 @@ int main() {
 			if (i != j)
 				mu = (mu * (x[i] - x[j])) % mod;
 		if (mu < 0) mu += mod;
-		mu = row(mu, mod - 2);
+		mu = pow(mu, mod - 2);
 		ans = (ans + (((y[i] * mutiL[i - 1] % mod) * mutiR[i + 1] % mod) * mu % mod)) % mod;
 	}
 	ans = (ans + mod) % mod;

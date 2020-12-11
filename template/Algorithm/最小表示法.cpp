@@ -1,8 +1,6 @@
 #include <cstdio>
-
 int n = 0;
 int a[600001];
-
 int main() {
 	scanf("%d", &n);
 	for (int i = 1; i <= n; ++i) {
@@ -10,7 +8,7 @@ int main() {
 		a[i + n] = a[i];
 	}
 	int i = 1, j = 2, k = 0;
-	while (i<=n&&j<=n) {
+	while (i <= n && j <= n) {
 		if (i == j) ++j;
 		k = 0;
 		while (k < n && a[i + k] == a[j + k]) ++k;

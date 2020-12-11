@@ -53,8 +53,6 @@ inline unsigned int get(unsigned int x) {
 }
 unsigned long long AnsSum = 0, lasAns = 0;
 int main() {
-	freopen("t.in", "r", stdin);
-	freopen("t.out", "w", stdout);
 	scanf("%d %d %u", &n, &q, &s);
 	for (int i = 1; i <= n; ++i) {
 		scanf("%d", &fa[0][i]);
@@ -72,11 +70,8 @@ int main() {
 		unsigned x = (get(s) ^ lasAns) % n + 1;
 		unsigned k = (get(s) ^ lasAns) % dep[x];
 		lasAns = GetFa(x, k);
-		// printf("%u %u %llu\n", x, k, lasAns);
 		AnsSum ^= lasAns * i;
 	}
 	printf("%llu", AnsSum);
-	fclose(stdin);
-	fclose(stdout);
 	return 0;
 }
