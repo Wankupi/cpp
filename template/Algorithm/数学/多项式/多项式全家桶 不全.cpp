@@ -3,7 +3,7 @@
 #include <algorithm>
 typedef long long ll;
 int const maxn = 1 << 18;
-int const mod = 998244353, G = 3, iG = 332748118;
+int const mod = 998244353, G = 3, iG = 332748118, inv2 = (mod + 1) / 2;
 inline void swap(int &a, int &b) { int c = a; a = b; b = c; }
 inline int plus(int a, int b) { return a + b < mod ? a + b : a + b - mod; }
 inline int dec(int a, int b) { return a >= b ? a - b : a - b + mod; }
@@ -11,12 +11,6 @@ inline int read() {
 	int x = 0, c = getchar(), f = 1;
 	while (c < '0' || c>'9') { if (c == '-') f = -1; c = getchar(); }
 	while (c >= '0' && c <= '9') { x = x * 10 + c - '0'; c = getchar(); }
-	return x * f;
-}
-inline int read_mod() {
-	int x = 0, c = getchar(), f = 1;
-	while (c < '0' || c>'9') { if (c == '-') f = -1; c = getchar(); }
-	while (c >= '0' && c <= '9') { x = plus(x * 10ll % mod, c - '0'); c = getchar(); }
 	return x * f;
 }
 int pow(ll x, int b) { ll r = 1; while (b) { if (b & 1) r = r * x % mod; x = x * x % mod; b >>= 1; } return int(r); }
@@ -31,6 +25,7 @@ public:
 	void ln(Polynomial &res, int n) const;
 	void exp(Polynomial &res, int n) const;
 	void Pow(Polynomial &res, int n, int k) const;
+	void sqrt(Polynomial &res, int n) const;
 	void clear(int n) {
 		int limit = 1;
 		while (limit < n) limit <<= 1;
@@ -120,14 +115,32 @@ void Polynomial::Pow(Polynomial &res, int n, int k) const {
 	for (int i = 0; i < n; ++i) tmp[i] = (long long)k * tmp[i] % mod;
 	tmp.exp(res, n);
 }
+
+void Polynomial::sqrt(Polynomial &g, int n) const {
+	static Polynomial tmp1, tmp2;
+	g.clear(n);
+	g[0] = 1;
+	int limit = 2, bit = 1;
+	while (true) {
+		for (int i = 0; i < limit; ++i) tmp1[i] = f[i];
+		g.inv(tmp2, limit);
+		tmp2.NTT(limit << 1, + 1);
+		tmp1.NTT(limit << 1, +1);
+		for (int i = 0; i < limit << 1; ++i) tmp1[i] = (ll)tmp1[i] * tmp2[i] % mod;
+		tmp1.NTT(limit << 1, -1);
+		for (int i = 0; i < limit; ++i) g[i] = inv2 * ((ll)g[i] + tmp1[i]) % mod;
+		for (int i = limit; i < limit << 1; ++i) g[i] = 0;
+		if (limit >= n) break;
+		++bit; limit <<= 1;
+	}
+}
+
 Polynomial f, g;
 int main() {
 	int n = read();
-	int k = read_mod();
-	Polynomial::prepare(n * 4);
 	for (int i = 0; i < n; ++i) f[i] = read();
-	f.Pow(g, n, k);
+	Polynomial::prepare(n * 4);
+	f.sqrt(g, n);
 	for (int i = 0; i < n; ++i) printf("%d ", g[i]);
-	printf("\n");
 	return 0;
 }
