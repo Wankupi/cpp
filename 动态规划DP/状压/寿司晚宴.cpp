@@ -21,15 +21,7 @@ Sushi make_Sushi(int x) {
 	if (x != 1) su.mp = x;
 	return su;
 }
-inline ll muti(ll a, ll b) {
-	ll r = 0;
-	while (b) {
-		if (b & 1) r = (r + a) % mod;
-		a = (a + a) % mod;
-		b >>= 1;
-	}
-	return r;
-}
+
 Sushi a[501];
 ll dp[256][256], f[256][256], g[256][256];
 int main() {
