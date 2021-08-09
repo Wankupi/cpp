@@ -12,7 +12,7 @@ int read() {
 int n = 0, m = 0, s = 0, t = 0;
 int head[maxn], nxt[maxn << 1], to[maxn << 1], cnt = 0;
 inline void insert(int u, int e) { nxt[++cnt] = head[u]; head[u] = cnt; to[cnt] = e; }
-int d[maxn]; // ¶È
+int d[maxn]; // åº¦
 int dis[maxn];
 void spfa(int S) {
 	memset(dis, 0x3f, sizeof dis);
@@ -45,7 +45,7 @@ void init() {
 		}
 		f[x][x] = 0.0;
 	}
-	// ÕâÑùµÄ±ä»»ÊÇ´íÎóµÄ£¬ÒòÎª¿ÉÄÜÓÃµ½ÒÑ¾­ÐÞ¸ÄµÄÖµ£¬µ¼ÖÂÇ°½øºÃ¶à²½¡£
+	// è¿™æ ·çš„å˜æ¢æ˜¯é”™è¯¯çš„ï¼Œå› ä¸ºå¯èƒ½ç”¨åˆ°å·²ç»ä¿®æ”¹çš„å€¼ï¼Œå¯¼è‡´å‰è¿›å¥½å¤šæ­¥ã€‚
 	//for (int x = 1; x <= n; ++x)
 	//	for (int y = 1; y <= n; ++y)
 	//		step[x][y] = step[step[x][y]][y]; // one step, another step
