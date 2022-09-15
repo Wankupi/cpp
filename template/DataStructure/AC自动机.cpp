@@ -4,9 +4,8 @@ using namespace std;
 int n = 0;
 char T[200010], S[2000010];
 int tri[2000000][26], fail[2000000], cnt = 0;
-int strCnt[2000000], ind[2000000];
+int strCnt[2000000];
 int pos[200001];
-bool in[2000000];
 int insert(char *s) { // add a string on tri tree
 	int p = 0;
 	while (*s != 0) {
@@ -36,7 +35,6 @@ void getFail() {
 				insert(tri[fail[x]][i], tri[x][i]);
 			}
 			else tri[x][i] = tri[fail[x]][i];
-			++ind[tri[fail[x]][i]];
 		}
 	}
 }
