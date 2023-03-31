@@ -43,21 +43,6 @@ void dfs(int x, int fa) {
 	}
 }
 
-int chain[maxBlocks][maxn]; // be init in dfs2
-
-int block_id_dfs2 = 0;
-int count_nodes_in_range_dfs2 = 0;
-void dfs2(int x, int fa) {
-	if (L[block_id_dfs2] <= x && x <= R[block_id_dfs2])
-		++count_nodes_in_range_dfs2;
-	chain[block_id_dfs2][x] = count_nodes_in_range_dfs2;
-	for (int i = head[x]; i; i = nxt[i])
-		if (to[i] != fa)
-			dfs2(to[i], x);
-	if (L[block_id_dfs2] <= x && x <= R[block_id_dfs2])
-		--count_nodes_in_range_dfs2;
-}
-
 struct Array {
 	ll tr[maxn];
 	ll S[maxBlocks];
@@ -94,6 +79,20 @@ struct Array {
 };
 Array sum;
 
+
+Array inchain;
+int chain[maxBlocks][maxn]; // be init in dfs2
+void dfs2(int x, int fa) {
+	inchain.add(x, 1);
+	for (int i = 1; i <= cnt_block; ++i)
+		chain[i][x] = inchain.query(L[i], R[i]);
+	for (int i = head[x]; i; i = nxt[i])
+		if (to[i] != fa)
+			dfs2(to[i], x);
+	inchain.add(x, -1);
+}
+
+
 ll total[maxBlocks];
 
 void prepare() {
@@ -106,10 +105,7 @@ void prepare() {
 			belong[j] = i;
 	}
 	dfs(to[head[0]], 0);
-	for (int i = 1; i <= cnt_block; ++i) {
-		block_id_dfs2 = i;
-		dfs2(to[head[0]], 0);
-	}
+	dfs2(to[head[0]], 0);
 	for (int i = 1; i <= n; ++i)
 		sum.tr[dfn[i]] = w[i];
 	for (int i = 1; i <= n; ++i)
@@ -119,7 +115,6 @@ void prepare() {
 		for (int j = L[i]; j <= R[i]; ++j)
 			total[i] += sum.tr[dfn[j] + siz[j] - 1] - sum.tr[dfn[j] - 1];
 	}
-
 	sum.init();
 }
 
